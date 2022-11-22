@@ -43,6 +43,6 @@
 	"ts-node": {
 		"swc": true
 	},
-	"include": ["src/**/*"],
+	"include": ["source/**/*"],
 	"exclude": ["node_modules/**", "dist/**", "*.md"]
 }
