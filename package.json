@@ -1,5 +1,5 @@
 {
-  "name": "helloworld",
+  "name": "typescript-hexagonal-domain-driven-design",
   "version": "0.0.0",
   "private": true,
   "type": "module",
