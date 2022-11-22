@@ -22,3 +22,14 @@ model User {
     height      Int?
     password    String
 }
+
+model File {
+    id       String  @id @default(cuid())
+    filename String  @unique
+    mime     String
+    size     Int
+    width    Int?
+    height   Int?
+    duration String?
+    ipfs     String?
+}
