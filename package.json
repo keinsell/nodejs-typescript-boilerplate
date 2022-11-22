@@ -53,6 +53,6 @@
   },
   "prisma": {
     "schema": "apps/server/prisma/schema.prisma",
-    "seed": "tsx packages/database-prisma/src/seed.ts"
+    "seed": "tsx apps/server/source/infrastructure/prisma/seed.ts"
   }
 }
