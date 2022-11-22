@@ -10,8 +10,9 @@ import { nanoid } from "nanoid";
  * @see [Understanding Domain Entities](https://khalilstemmler.com/articles/typescript-domain-driven-design/entities/)
  */
 export abstract class Entity {
-	id: string | number;
-	constructor(id?: string | number) {
+	/** Automatically generated (or imported) id of specific entity. Used to reference right object in persistence layer. */
+	id: any;
+	constructor(id?: any) {
 		this.id = id ?? nanoid();
 	}
 }
