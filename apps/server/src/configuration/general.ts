@@ -1,5 +1,5 @@
-import { ILogger } from "../common/infrastructure/logger";
-import { ConsoleLogger } from "../common/infrastructure/logger/console.logger";
+import { ILogger } from "../common/lib/infrastructure/logger";
+import { ConsoleLogger } from "../common/lib/infrastructure/logger/console.logger";
 
 export interface ApplicationContainerConfiguration {
 	applicationName: string;
