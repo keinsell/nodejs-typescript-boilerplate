@@ -1,4 +1,4 @@
-import { IMapper } from "../mapper/mapper.common";
+import { IMapper } from "../../mapper/mapper.common";
 
 export abstract class Repository<T> {
 	db: unknown;

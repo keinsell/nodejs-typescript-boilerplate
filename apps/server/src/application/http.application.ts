@@ -2,7 +2,6 @@ import { App } from "@tinyhttp/app";
 import { urlencoded } from "milliparsec";
 import { lruSend } from "lru-send";
 import cors from "cors";
-import { userRouter } from "../modules/user/routers/user.router";
 import {
 	generateRoutes,
 	generateSpec,
@@ -31,9 +30,7 @@ export class HttpApplication {
 	protected applyDevelopmentMiddleware() {}
 	protected applyProductionMiddleware() {}
 
-	protected attachComponents() {
-		this.application.use(userRouter);
-	}
+	protected attachComponents() {}
 
 	protected async openapi3() {
 		const specOptions: ExtendedSpecConfig = {
