@@ -1,8 +1,8 @@
-import { JobQueueTask } from "./job-queue-task";
 import bull, { Job } from "bull";
 import { nanoid } from "nanoid";
+import { JobQueueTask } from ".";
 
-export abstract class JobQueueWorker<TaskPayload> {
+export abstract class BullJobQueue<T> {
 	private readonly queueName: string;
 	private readonly queueInstance: bull.Queue;
 	constructor(queueName?: string) {
@@ -23,9 +23,7 @@ export abstract class JobQueueWorker<TaskPayload> {
 		this.start();
 	}
 
-	abstract executeImplementation(
-		task: JobQueueTask<TaskPayload>
-	): Promise<void>;
+	abstract executeImplementation(task: JobQueueTask<T>): Promise<void>;
 
 	async start(): Promise<void> {
 		this.queueInstance.resume();
@@ -33,7 +31,7 @@ export abstract class JobQueueWorker<TaskPayload> {
 	async stop(): Promise<void> {
 		this.queueInstance.pause();
 	}
-	async enqueue(task: JobQueueTask<TaskPayload>): Promise<void> {
+	async enqueue(task: JobQueueTask<T>): Promise<void> {
 		this.queueInstance.add(task);
 	}
 	async clear(): Promise<void> {

@@ -1,4 +1,16 @@
-import { JobQueueTask } from "./job-queue-task";
-import { JobQueueWorker } from "./job-queue-worker";
+import { nanoid } from "nanoid";
 
-export { JobQueueTask, JobQueueWorker };
+export class JobQueueTask<Payload> {
+	constructor(public data: Payload, public id?: string) {
+		this.id = id || nanoid();
+		this.data = data;
+	}
+}
+
+export interface JobQueue<T> {
+	executeImplementation(job: JobQueueTask<T>): Promise<void>;
+	start(): Promise<void>;
+	stop(): Promise<void>;
+	enqueue(task: JobQueueTask<T>): Promise<void>;
+	clear(): Promise<void>;
+}
