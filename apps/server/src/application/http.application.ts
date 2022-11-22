@@ -8,7 +8,7 @@ import {
 	ExtendedRoutesConfig,
 	ExtendedSpecConfig,
 } from "tsoa";
-import { GENERAL_CONFIGURATION } from "../configuration/general";
+import { APPLICATION_CONFIGURATION } from "../configuration/general";
 
 export class HttpApplication {
 	private application: App;
@@ -40,7 +40,7 @@ export class HttpApplication {
 			noImplicitAdditionalProperties: "silently-remove-extras",
 			outputDirectory: "./",
 			controllerPathGlobs: ["./**/*.controller.ts"],
-			name: GENERAL_CONFIGURATION.applicationName,
+			name: APPLICATION_CONFIGURATION.applicationName,
 			description: "Early version of Neuronek API.",
 			version: "1.0.0",
 			schemes: ["http"],
