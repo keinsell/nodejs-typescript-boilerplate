@@ -3,7 +3,7 @@ import type {
 	NextApiResponse as Response,
 } from "next";
 
-export abstract class Controller {
+export abstract class NextjsController {
 	protected req!: Request;
 	protected res!: Response;
 
@@ -35,7 +35,7 @@ export abstract class Controller {
 	}
 
 	public clientError(message?: string) {
-		return Controller.jsonResponse(
+		return NextjsController.jsonResponse(
 			this.res,
 			400,
 			message ?? "Unauthorized"
@@ -43,7 +43,7 @@ export abstract class Controller {
 	}
 
 	public unauthorized(message?: string) {
-		return Controller.jsonResponse(
+		return NextjsController.jsonResponse(
 			this.res,
 			401,
 			message ?? "Unauthorized"
@@ -51,7 +51,7 @@ export abstract class Controller {
 	}
 
 	public paymentRequired(message?: string) {
-		return Controller.jsonResponse(
+		return NextjsController.jsonResponse(
 			this.res,
 			402,
 			message ?? "Payment required"
@@ -59,19 +59,31 @@ export abstract class Controller {
 	}
 
 	public forbidden(message?: string) {
-		return Controller.jsonResponse(this.res, 403, message ?? "Forbidden");
+		return NextjsController.jsonResponse(
+			this.res,
+			403,
+			message ?? "Forbidden"
+		);
 	}
 
 	public notFound(message?: string) {
-		return Controller.jsonResponse(this.res, 404, message ?? "Not found");
+		return NextjsController.jsonResponse(
+			this.res,
+			404,
+			message ?? "Not found"
+		);
 	}
 
 	public conflict(message?: string) {
-		return Controller.jsonResponse(this.res, 409, message ?? "Conflict");
+		return NextjsController.jsonResponse(
+			this.res,
+			409,
+			message ?? "Conflict"
+		);
 	}
 
 	public tooMany(message?: string) {
-		return Controller.jsonResponse(
+		return NextjsController.jsonResponse(
 			this.res,
 			429,
 			message ?? "Too many requests"
@@ -79,7 +91,7 @@ export abstract class Controller {
 	}
 
 	public todo() {
-		return Controller.jsonResponse(this.res, 400, "TODO");
+		return NextjsController.jsonResponse(this.res, 400, "TODO");
 	}
 
 	public fail(error: Error | string) {
