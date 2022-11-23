@@ -1,13 +1,13 @@
 export type BucketObject = {
 	buffer: Buffer;
-	filename: string;
+	filenameOrHash: string;
 	mime: string;
 	extension: string;
 };
 
 export interface IBucket {
-	getObject(filename: string): Promise<BucketObject | undefined>;
-	putObject(filename: string, content: Buffer): Promise<void>;
-	deleteObject(filename: string): Promise<void>;
-	listObjects(): Promise<string[]>;
+	get(filenameOrHash: string): Promise<BucketObject | undefined>;
+	put(content: Buffer): Promise<BucketObject | undefined>;
+	delete(filenameOrHash: string): Promise<boolean>;
+	list(): Promise<string[]>;
 }
