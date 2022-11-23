@@ -78,12 +78,12 @@ export class HttpApplication {
 	}
 
 	public async bootstrap() {
-		await this.application.listen(4000);
+		await this.application.listen(1337);
 
 		if (APPLICATION_CONFIGURATION.generateOpenApiDocumentation) {
 			this.openapi3();
 		}
 
-		console.log("🚀 Server ready at: http://localhost:4000");
+		console.log("🚀 Server ready at: http://localhost:1337");
 	}
 }

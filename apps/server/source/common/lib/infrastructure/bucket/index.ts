@@ -1,13 +1,16 @@
+import type { CID } from "multiformats/cid";
+
 export type BucketObject = {
 	buffer: Buffer;
-	filenameOrHash: string;
+	filename: string;
+	cid?: CID;
 	mime: string;
 	extension: string;
 };
 
 export interface IBucket {
-	get(filenameOrHash: string): Promise<BucketObject | undefined>;
+	get(filenameOrHash: string | CID): Promise<BucketObject | undefined>;
 	put(content: Buffer): Promise<BucketObject | undefined>;
-	delete(filenameOrHash: string): Promise<boolean>;
+	delete(filenameOrHash: string | CID): Promise<boolean>;
 	list(): Promise<string[]>;
 }
