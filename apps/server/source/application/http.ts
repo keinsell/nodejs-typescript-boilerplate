@@ -49,7 +49,7 @@ export class HttpApplication {
 				email: "keinsell@protonmail.com",
 			},
 			yaml: true,
-			specFileBaseName: "oa3",
+			specFileBaseName: "oas3",
 			spec: {
 				tags: [
 					{
