@@ -77,7 +77,13 @@ services:
       MINIO_SECRET_KEY: ${S3_SECRET_KEY}
       MINIO_REGION: ${S3_REGION}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://${S3_ENDPOINT}:${S3_PORT}/minio/health/live",
+        ]
       interval: 30s
       timeout: 20s
       retries: 3
