@@ -2,6 +2,8 @@ import { ILogger } from "../common/lib/infrastructure/logger";
 import { ConsoleLogger } from "../common/lib/infrastructure/logger/console.logger";
 import { IHashingService } from "../common/lib/security/hashing";
 import { Argon2HashingService } from "../common/lib/security/hashing/argon2.hashing";
+// eslint-disable-next-line node/file-extension-in-import
+import { ENVIRONMENT_VARIABLES } from "./environment";
 
 /** Generic interface for injecting application-wide services such as loggers or switching specific features of application. */
 export interface ApplicationContainerConfiguration {
@@ -17,7 +19,7 @@ export interface ApplicationContainerConfiguration {
 }
 
 export const APPLICATION_CONFIGURATION: ApplicationContainerConfiguration = {
-	applicationName: "helloWorld",
+	applicationName: ENVIRONMENT_VARIABLES.REPOSITORY_NAME,
 	logger: new ConsoleLogger(),
 	hashing: new Argon2HashingService(),
 	generateOpenApiDocumentation: false,

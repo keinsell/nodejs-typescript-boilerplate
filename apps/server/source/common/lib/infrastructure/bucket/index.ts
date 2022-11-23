@@ -9,8 +9,8 @@ export type BucketObject = {
 };
 
 export interface IBucket {
-	get(filenameOrHash: string | CID): Promise<BucketObject | undefined>;
+	get(filenameOrHash: string): Promise<BucketObject | undefined>;
 	put(content: Buffer): Promise<BucketObject | undefined>;
-	delete(filenameOrHash: string | CID): Promise<boolean>;
+	delete(filenameOrHash: string): Promise<boolean>;
 	list(): Promise<string[]>;
 }
