@@ -25,3 +25,7 @@ export class Command {
 		this.causationId = properties.causationId;
 	}
 }
+
+export interface ICommandHandler<T extends Command> {
+	execute(command: T): Promise<unknown>;
+}
