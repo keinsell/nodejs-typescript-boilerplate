@@ -1,12 +1,12 @@
 import { Request, Response } from "@tinyhttp/app";
 
-export abstract class TinnyHttpController {
+export abstract class TinnyHttpController<T = any> {
 	protected req!: Request;
 	protected res!: Response;
 
 	protected abstract executeImplementation(
 		..._arguments: unknown[]
-	): Promise<Response>;
+	): Promise<T>;
 
 	public async execute(request: Request, response: Response) {
 		this.req = request;
