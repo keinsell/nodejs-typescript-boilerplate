@@ -1,5 +1,6 @@
 import { Entity } from "../../common/lib/domain/entity";
 import { ValueObject } from "../../common/lib/domain/value-object";
+import { JsonWebTokenService } from "../../common/lib/security/jsonwebtoken";
 // eslint-disable-next-line node/file-extension-in-import
 import { APPLICATION_CONFIGURATION } from "../../configuration/general";
 
@@ -49,5 +50,17 @@ export class User extends Entity implements UserProperties {
 		this.username = properties.username;
 		this.password = properties.password;
 		this.email = properties.email;
+	}
+
+	public async authenticate(password: string): Promise<string | undefined> {
+		const isPasswordValid = await this.password.compare(password);
+
+		if (!isPasswordValid) {
+			return undefined;
+		}
+
+		const jwtService = new JsonWebTokenService();
+
+		return jwtService.sign({ id: this.id, username: this.username });
 	}
 }

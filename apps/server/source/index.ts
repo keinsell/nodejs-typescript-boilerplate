@@ -31,7 +31,7 @@ export async function main() {
 	});
 
 	const loginUserCommand = new LoginUserCommand({
-		usernameOrEmail: "keinsell",
+		username: "keinsell",
 		password: "securePassword",
 	});
 

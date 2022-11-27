@@ -4,12 +4,12 @@ import {
 } from "../../../../common/lib/domain/command";
 
 export class LoginUserCommand extends Command {
-	readonly usernameOrEmail: string;
+	readonly username: string;
 	readonly password: string;
 
 	constructor(properties: CommandProperties<LoginUserCommand>) {
 		super(properties);
-		this.usernameOrEmail = properties.usernameOrEmail;
+		this.username = properties.username;
 		this.password = properties.password;
 	}
 }

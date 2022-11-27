@@ -1,4 +1,5 @@
 import { ICommandHandler } from "../../../../common/lib/domain/command";
+import { JsonWebTokenService } from "../../../../common/lib/security/jsonwebtoken";
 import { APPLICATION_CONFIGURATION } from "../../../../configuration/general";
 import { UserRepository } from "../../repository";
 import { LoginUserCommand } from "./command";
@@ -7,9 +8,10 @@ export class LoginUserService implements ICommandHandler<LoginUserCommand> {
 	protected logger = APPLICATION_CONFIGURATION.logger;
 	async execute(command: LoginUserCommand) {
 		const userRepository = new UserRepository();
+		const jwtService = new JsonWebTokenService();
 
 		const isUserByUsername = await userRepository.findByUsername(
-			command.usernameOrEmail
+			command.username
 		);
 
 		if (!isUserByUsername) {
@@ -24,10 +26,16 @@ export class LoginUserService implements ICommandHandler<LoginUserCommand> {
 			throw new Error("Password is not valid");
 		}
 
-		this.logger.log("Found user and verified password", user);
+		const token = jwtService.sign({ id: user.id, username: user.username });
 
-		// TODO: Perepare JWT Token
+		this.logger.log(
+			"Found user, verified password and generated JWT",
+			token
+		);
 
-		return user;
+		return {
+			user,
+			token,
+		};
 	}
 }

@@ -68,12 +68,15 @@ export class UserRepository implements IRepository<User> {
 	findAll(): Promise<User[]> {
 		throw new NotImplementedError("findAll() is not implemented");
 	}
+
 	findAllPaginated(params: PaginatedQueryParams): Promise<Paginated<User>> {
 		throw new NotImplementedError();
 	}
+
 	delete(id: string): Promise<void> {
 		throw new NotImplementedError();
 	}
+
 	transaction<T>(callback: () => Promise<T>): Promise<T> {
 		throw new NotImplementedError();
 	}
