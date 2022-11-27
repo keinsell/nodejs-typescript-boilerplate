@@ -9,6 +9,7 @@ import {
 	ExtendedSpecConfig,
 } from "tsoa";
 import { APPLICATION_CONFIGURATION } from "../configuration/general";
+import { LoginUserController } from "../modules/user/commands/login-user/controller";
 
 export class HttpApplication {
 	private application: App;
@@ -30,7 +31,11 @@ export class HttpApplication {
 	protected applyDevelopmentMiddleware() {}
 	protected applyProductionMiddleware() {}
 
-	protected attachComponents() {}
+	protected attachComponents() {
+		this.application.post("/login", (req, res) =>
+			new LoginUserController().execute(req, res)
+		);
+	}
 
 	protected async openapi3() {
 		const specOptions: ExtendedSpecConfig = {

@@ -15,7 +15,9 @@ export class LoginUserService implements ICommandHandler<LoginUserCommand> {
 		);
 
 		if (!isUserByUsername) {
-			throw new Error("User not found");
+			return {
+				error: "User not found",
+			};
 		}
 
 		const user = isUserByUsername;
@@ -23,7 +25,9 @@ export class LoginUserService implements ICommandHandler<LoginUserCommand> {
 		const isPasswordValid = user.password.compare(command.password);
 
 		if (!isPasswordValid) {
-			throw new Error("Password is not valid");
+			return {
+				error: "Invalid password",
+			};
 		}
 
 		const token = jwtService.sign({ id: user.id, username: user.username });

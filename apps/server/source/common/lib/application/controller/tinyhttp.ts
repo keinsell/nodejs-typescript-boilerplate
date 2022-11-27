@@ -5,7 +5,7 @@ export abstract class TinnyHttpController {
 	protected res!: Response;
 
 	protected abstract executeImplementation(
-		...arguments_: unknown[]
+		..._arguments: unknown[]
 	): Promise<Response>;
 
 	public async execute(request: Request, response: Response) {
