@@ -1,13 +1,22 @@
 /* eslint-disable node/file-extension-in-import */
-import { Response } from "@tinyhttp/app";
+import { Body, Get, OperationId, Response, Route, Tags } from "tsoa";
 import { Controller } from "../../../../common/lib/application/controller";
 import { User } from "../../entity";
 import { GetProfileCommand } from "./command";
+import { UserProfileDataTransferObject } from "./response";
 import { GetProfileService } from "./service";
 
+@Tags("User")
+@Route()
 export class GetProfileController extends Controller {
 	protected service = new GetProfileService();
-	protected async executeImplementation(): Promise<Response<any>> {
+
+	@Get("me")
+	@OperationId("get-profile")
+	@Response<UserProfileDataTransferObject>(200, "OK")
+	protected async executeImplementation(): Promise<
+		UserProfileDataTransferObject | any
+	> {
 		const user = (this.req as any).user as User;
 
 		const command = new GetProfileCommand({ userId: user.id });

@@ -1,0 +1,57 @@
+components:
+    examples: {}
+    headers: {}
+    parameters: {}
+    requestBodies: {}
+    responses: {}
+    schemas:
+        UserProfileDataTransferObject:
+            properties:
+                id:
+                    type: string
+                username:
+                    type: string
+                email:
+                    type: string
+            required:
+                - id
+                - username
+                - email
+            type: object
+            additionalProperties: false
+    securitySchemes: {}
+info:
+    title: helloworld
+    version: 1.0.0
+    description: 'Documentation of ongoing API of application.'
+    contact:
+        name: 'Jakub Olan'
+        email: keinsell@protonmail.com
+openapi: 3.0.0
+paths:
+    /me:
+        get:
+            operationId: get-profile
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                anyOf:
+                                    - {$ref: '#/components/schemas/UserProfileDataTransferObject'}
+                                    - {}
+            tags:
+                - User
+            security: []
+            parameters: []
+servers:
+    -
+        url: /api
+tags:
+    -
+        name: User
+        description: 'Operations about users'
+        externalDocs:
+            description: 'Find out more about users'
+            url: 'http://swagger.io'

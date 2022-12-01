@@ -55,9 +55,9 @@ export class HttpApplication {
 			specVersion: 3,
 			noImplicitAdditionalProperties: "silently-remove-extras",
 			outputDirectory: "./",
-			controllerPathGlobs: ["./**/*.controller.ts"],
+			controllerPathGlobs: ["./**/*.controller.ts", "./**/controller.ts"],
 			name: APPLICATION_CONFIGURATION.applicationName,
-			description: "Early version of Neuronek API.",
+			description: "Documentation of ongoing API of application.",
 			version: "1.0.0",
 			schemes: ["http"],
 			contact: {

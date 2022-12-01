@@ -22,5 +22,5 @@ export const APPLICATION_CONFIGURATION: ApplicationContainerConfiguration = {
 	applicationName: ENVIRONMENT_VARIABLES.REPOSITORY_NAME,
 	logger: new ConsoleLogger(),
 	hashing: new Argon2HashingService(),
-	generateOpenApiDocumentation: false,
+	generateOpenApiDocumentation: true,
 };
