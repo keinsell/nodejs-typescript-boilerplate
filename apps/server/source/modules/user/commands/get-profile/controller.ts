@@ -14,6 +14,12 @@ export class GetProfileController extends Controller {
 	@Get("me")
 	@OperationId("get-profile")
 	@Response<UserProfileDataTransferObject>(200, "OK")
+	protected async documentation(): Promise<
+		UserProfileDataTransferObject | { error: string }
+	> {
+		throw new Error("Method not implemented.");
+	}
+
 	protected async executeImplementation(): Promise<
 		UserProfileDataTransferObject | any
 	> {

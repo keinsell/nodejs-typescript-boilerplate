@@ -40,7 +40,7 @@ paths:
                             schema:
                                 anyOf:
                                     - {$ref: '#/components/schemas/UserProfileDataTransferObject'}
-                                    - {}
+                                    - {properties: {error: {type: string}}, required: [error], type: object}
             tags:
                 - User
             security: []
