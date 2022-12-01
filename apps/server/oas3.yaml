@@ -19,6 +19,37 @@ components:
                 - email
             type: object
             additionalProperties: false
+        RegisterUserResponseDataTransferObject:
+            properties:
+                id:
+                    type: string
+                username:
+                    type: string
+                email:
+                    type: string
+                token:
+                    type: string
+            required:
+                - id
+                - username
+                - email
+                - token
+            type: object
+            additionalProperties: false
+        CreateUserRequestDataTransferObject:
+            properties:
+                username:
+                    type: string
+                email:
+                    type: string
+                password:
+                    type: string
+            required:
+                - username
+                - email
+                - password
+            type: object
+            additionalProperties: false
     securitySchemes: {}
 info:
     title: helloworld
@@ -45,6 +76,28 @@ paths:
                 - User
             security: []
             parameters: []
+    /register:
+        post:
+            operationId: register-user
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                anyOf:
+                                    - {$ref: '#/components/schemas/RegisterUserResponseDataTransferObject'}
+                                    - {properties: {error: {type: string}}, required: [error], type: object}
+            tags:
+                - User
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateUserRequestDataTransferObject'
 servers:
     -
         url: /api

@@ -29,7 +29,9 @@ export class GetProfileController extends Controller {
 
 		const response = await this.service.execute(command);
 
-		if (response.error) {
+		const isError = Object.assign(response).error;
+
+		if (isError) {
 			return this.res.status(400).json(response);
 		}
 

@@ -81,7 +81,7 @@ export class HttpApplication {
 		};
 
 		const routeOptions: ExtendedRoutesConfig = {
-			basePath: "/api",
+			basePath: `${process.env["API_URL"]}`,
 			noImplicitAdditionalProperties: "silently-remove-extras",
 			entryFile: "./src/index.ts",
 			routesDir: "./dist",
