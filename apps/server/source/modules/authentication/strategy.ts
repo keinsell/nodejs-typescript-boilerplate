@@ -1,7 +1,8 @@
+/* eslint-disable node/file-extension-in-import */
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { JsonWebTokenService } from "../../common/services/jsonwebtoken";
 import { UserRepository } from "../user/repository";
-import { USER_JWT_PAYLOAD } from "./response";
+import { JWT_TOKEN_PAYLOAD } from "./jwt-token-payload";
 
 export const jwtAuthorizationStrategy = new JwtStrategy(
 	{
@@ -9,7 +10,7 @@ export const jwtAuthorizationStrategy = new JwtStrategy(
 		secretOrKey: new JsonWebTokenService().JWT_SECRET,
 		// TODO: Add issuer and audience
 	},
-	async (payload: USER_JWT_PAYLOAD, done) => {
+	async (payload: JWT_TOKEN_PAYLOAD, done) => {
 		const userRepository = new UserRepository();
 
 		const user = await userRepository.findById(payload.id);

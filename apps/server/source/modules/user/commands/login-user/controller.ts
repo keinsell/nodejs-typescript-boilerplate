@@ -9,7 +9,7 @@ import { LoginUserRequestDataTransferObject } from "./request";
 @Tags("User")
 @Route()
 export class LoginUserController extends Controller {
-	protected loginUserService = new LoginUserService();
+	protected service = new LoginUserService();
 
 	@Post("login")
 	@OperationId("login-user")
@@ -22,6 +22,10 @@ export class LoginUserController extends Controller {
 	}
 
 	protected async executeImplementation() {
+		// 1. Validate Permissions
+
+		// 2. Validate Input to Command
+
 		const { username, password } = this.req.body;
 
 		if (!(username && password)) {
@@ -30,11 +34,19 @@ export class LoginUserController extends Controller {
 			});
 		}
 
+		// 3. Construct Command
+
 		const command = new LoginUserCommand({ username, password });
 
-		const response = await this.loginUserService.execute(command);
+		// 4. Execute Command
+
+		const response = await this.service.execute(command);
+
+		// 6. Validate Response
 
 		const isError = Object.assign(response).error;
+
+		// 7. Return Response
 
 		if (isError) {
 			return this.res.status(400).json(response);
