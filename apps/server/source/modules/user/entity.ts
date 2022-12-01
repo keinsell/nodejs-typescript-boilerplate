@@ -1,6 +1,6 @@
 import { Entity } from "../../common/lib/domain/entity";
 import { ValueObject } from "../../common/lib/domain/value-object";
-import { JsonWebTokenService } from "../../common/lib/security/jsonwebtoken";
+import { JsonWebTokenService } from "../../common/services/jsonwebtoken";
 // eslint-disable-next-line node/file-extension-in-import
 import { APPLICATION_CONFIGURATION } from "../../configuration/general";
 

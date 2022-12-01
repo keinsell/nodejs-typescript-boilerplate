@@ -4,9 +4,9 @@ import {
 } from "../../../../common/lib/domain/command";
 
 export class GetProfileCommand extends Command {
-	readonly authorizationToken: string;
+	readonly userId: string;
 	constructor(properties: CommandProperties<GetProfileCommand>) {
 		super(properties);
-		this.authorizationToken = properties.authorizationToken;
+		this.userId = properties.userId;
 	}
 }

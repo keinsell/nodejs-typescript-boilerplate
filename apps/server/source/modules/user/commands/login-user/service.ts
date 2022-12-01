@@ -1,5 +1,5 @@
 import { ICommandHandler } from "../../../../common/lib/domain/command";
-import { JsonWebTokenService } from "../../../../common/lib/security/jsonwebtoken";
+import { JsonWebTokenService } from "../../../../common/services/jsonwebtoken";
 import { APPLICATION_CONFIGURATION } from "../../../../configuration/general";
 import { UserRepository } from "../../repository";
 import { LoginUserCommand } from "./command";

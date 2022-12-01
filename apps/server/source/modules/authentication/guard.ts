@@ -1,6 +1,6 @@
 import { Guard } from "../../common/lib/domain/guard";
 import { Request } from "@tinyhttp/app";
-import { JsonWebTokenService } from "../../common/lib/security/jsonwebtoken";
+import { JsonWebTokenService } from "../../common/services/jsonwebtoken";
 
 export class AuthenticationGuard extends Guard {
 	protected jwtService = new JsonWebTokenService();

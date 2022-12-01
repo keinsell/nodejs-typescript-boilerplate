@@ -10,6 +10,9 @@ import {
 } from "tsoa";
 import { APPLICATION_CONFIGURATION } from "../configuration/general";
 import { LoginUserController } from "../modules/user/commands/login-user/controller";
+import passport from "passport";
+import { jwtAuthorizationStrategy } from "../modules/authentication/strategy";
+import { GetProfileController } from "../modules/user/commands/get-profile/controller";
 
 export class HttpApplication {
 	private application: App;
@@ -26,14 +29,22 @@ export class HttpApplication {
 		this.application.use(urlencoded());
 		this.application.use(lruSend());
 		this.application.options("*", cors());
+
+		passport.use(jwtAuthorizationStrategy);
 	}
 
 	protected applyDevelopmentMiddleware() {}
 	protected applyProductionMiddleware() {}
 
 	protected attachComponents() {
-		this.application.post("/login", (req, res) =>
-			new LoginUserController().execute(req, res)
+		this.application.post("/login", (request, response) =>
+			new LoginUserController().execute(request, response)
+		);
+		this.application.get(
+			"/me",
+			passport.authenticate("jwt", { session: false }),
+			(request, response) =>
+				new GetProfileController().execute(request, response)
 		);
 	}
 

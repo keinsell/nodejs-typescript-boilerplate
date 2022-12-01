@@ -11,11 +11,17 @@ import { LoginUserService } from "./modules/user/commands/login-user/service";
 import { LoginUserCommand } from "./modules/user/commands/login-user/command";
 import { GetProfileService } from "./modules/user/commands/get-profile/service";
 import { GetProfileCommand } from "./modules/user/commands/get-profile/command";
+import { JsonWebTokenService } from "./common/services/jsonwebtoken";
 // logProcessErrors();
 
 export async function main() {
+	console.log(process.env.DATABASE_URI);
 	new HttpApplication().bootstrap();
 	await PrismaInfrastructre.$connect();
 }
+
+console.log(
+	new JsonWebTokenService().sign({ id: "claubv4bj0000d5gx8lfez1f4" })
+);
 
 await main();
