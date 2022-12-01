@@ -1,5 +1,5 @@
 import { App } from "@tinyhttp/app";
-import { urlencoded } from "milliparsec";
+import bodyparser from "body-parser";
 import { lruSend } from "lru-send";
 import cors from "cors";
 import {
@@ -13,6 +13,7 @@ import { LoginUserController } from "../modules/user/commands/login-user/control
 import passport from "passport";
 import { jwtAuthorizationStrategy } from "../modules/authentication/strategy";
 import { GetProfileController } from "../modules/user/commands/get-profile/controller";
+import { RegisterUserController } from "../modules/user/commands/register-user/controller";
 
 export class HttpApplication {
 	private application: App;
@@ -26,7 +27,8 @@ export class HttpApplication {
 	}
 
 	protected applyMiddleware() {
-		this.application.use(urlencoded());
+		this.application.use(bodyparser.json());
+		this.application.use(bodyparser.urlencoded());
 		this.application.use(lruSend());
 		this.application.options("*", cors());
 
@@ -40,6 +42,9 @@ export class HttpApplication {
 		this.application.post("/login", (request, response) =>
 			new LoginUserController().execute(request, response)
 		);
+		this.application.post("/register", (request, response) =>
+			new RegisterUserController().execute(request, response)
+		);
 		this.application.get(
 			"/me",
 			passport.authenticate("jwt", { session: false }),
@@ -50,7 +55,7 @@ export class HttpApplication {
 
 	protected async openapi3() {
 		const specOptions: ExtendedSpecConfig = {
-			basePath: "/api",
+			basePath: "",
 			entryFile: "./api/server.ts",
 			specVersion: 3,
 			noImplicitAdditionalProperties: "silently-remove-extras",
@@ -81,7 +86,7 @@ export class HttpApplication {
 		};
 
 		const routeOptions: ExtendedRoutesConfig = {
-			basePath: `${process.env["API_URL"]}`,
+			basePath: "",
 			noImplicitAdditionalProperties: "silently-remove-extras",
 			entryFile: "./src/index.ts",
 			routesDir: "./dist",

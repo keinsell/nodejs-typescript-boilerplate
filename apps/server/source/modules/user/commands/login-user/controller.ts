@@ -1,12 +1,27 @@
 /* eslint-disable node/file-extension-in-import */
-import { Response } from "@tinyhttp/app";
 import { Controller } from "../../../../common/lib/application/controller";
 import { LoginUserCommand } from "./command";
 import { LoginUserService } from "./service";
+import { Body, OperationId, Post, Response, Route, Tags } from "tsoa";
+import { LoginUserResponseDataTransferObject } from "./response";
+import { LoginUserRequestDataTransferObject } from "./request";
 
+@Tags("User")
+@Route()
 export class LoginUserController extends Controller {
 	protected loginUserService = new LoginUserService();
-	protected async executeImplementation(): Promise<Response<any>> {
+
+	@Post("login")
+	@OperationId("login-user")
+	@Response<LoginUserResponseDataTransferObject>(200, "OK")
+	protected async documentation(
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		@Body() _body: LoginUserRequestDataTransferObject
+	): Promise<LoginUserResponseDataTransferObject | { error: string }> {
+		throw new Error("Method not implemented.");
+	}
+
+	protected async executeImplementation() {
 		const { username, password } = this.req.body;
 
 		if (!(username && password)) {
@@ -19,7 +34,9 @@ export class LoginUserController extends Controller {
 
 		const response = await this.loginUserService.execute(command);
 
-		if (response.error) {
+		const isError = Object.assign(response).error;
+
+		if (isError) {
 			return this.res.status(400).json(response);
 		}
 

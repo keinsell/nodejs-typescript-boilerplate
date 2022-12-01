@@ -1,5 +1,5 @@
 /* eslint-disable node/file-extension-in-import */
-import { Body, Get, OperationId, Response, Route, Tags } from "tsoa";
+import { Body, Get, OperationId, Response, Route, Security, Tags } from "tsoa";
 import { Controller } from "../../../../common/lib/application/controller";
 import { User } from "../../entity";
 import { GetProfileCommand } from "./command";
@@ -14,7 +14,8 @@ export class GetProfileController extends Controller {
 	@Get("me")
 	@OperationId("get-profile")
 	@Response<UserProfileDataTransferObject>(200, "OK")
-	protected async documentation(): Promise<
+	@Security("jwt", ["user"])
+	async documentation(): Promise<
 		UserProfileDataTransferObject | { error: string }
 	> {
 		throw new Error("Method not implemented.");

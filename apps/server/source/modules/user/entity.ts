@@ -36,17 +36,26 @@ export class Password extends ValueObject<string> {
 }
 
 export interface UserProperties {
+	firstName?: string;
+	lastName?: string;
 	username: string;
 	password: Password;
 	email: string;
+	dateOfBirth?: Date;
+	height?: number;
+	weight?: number;
 }
 
 export class User extends Entity implements UserProperties {
+	firstName?: string;
+	lastName?: string;
 	username: string;
 	password: Password;
 	email: string;
 	constructor(properties: UserProperties, id?: string) {
 		super(id);
+		this.firstName = properties.firstName;
+		this.lastName = properties.lastName;
 		this.username = properties.username;
 		this.password = properties.password;
 		this.email = properties.email;

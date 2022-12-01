@@ -19,6 +19,42 @@ components:
                 - email
             type: object
             additionalProperties: false
+        LoginUserResponseDataTransferObject:
+            properties:
+                id:
+                    type: string
+                username:
+                    type: string
+                email:
+                    type: string
+                token:
+                    type: string
+            required:
+                - id
+                - username
+                - email
+                - token
+            type: object
+            additionalProperties: false
+        LoginUserRequestDataTransferObject:
+            properties:
+                username:
+                    type: string
+                    description: 'The user''s useranme.'
+                    example: johndoe
+                    maxLength: 32
+                    minLength: 1
+                password:
+                    type: string
+                    description: 'The user''s password'
+                    example: superDuperStrongPassword
+                    maxLength: 128
+                    minLength: 6
+            required:
+                - username
+                - password
+            type: object
+            additionalProperties: false
         RegisterUserResponseDataTransferObject:
             properties:
                 id:
@@ -38,12 +74,37 @@ components:
             additionalProperties: false
         CreateUserRequestDataTransferObject:
             properties:
+                firstName:
+                    type: string
+                    description: 'The user''s first name'
+                    example: John
+                    maxLength: 50
+                    minLength: 1
+                    pattern: '^[a-zA-Z0-9_]*$'
+                lastName:
+                    type: string
+                    description: 'The user''s last name'
+                    example: Doe
+                    maxLength: 50
+                    minLength: 1
+                    pattern: '^[a-zA-Z0-9_]*$'
                 username:
                     type: string
+                    description: 'The user''s useranme.'
+                    example: johndoe
+                    maxLength: 32
+                    minLength: 1
                 email:
                     type: string
+                    description: 'The user''s email'
+                    example: john.doe@example.com
+                    pattern: '(?:[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])'
                 password:
                     type: string
+                    description: 'The user''s password'
+                    example: superDuperStrongPassword
+                    maxLength: 128
+                    minLength: 6
             required:
                 - username
                 - email
@@ -74,8 +135,33 @@ paths:
                                     - {properties: {error: {type: string}}, required: [error], type: object}
             tags:
                 - User
+            security:
+                -
+                    jwt:
+                        - user
+            parameters: []
+    /login:
+        post:
+            operationId: login-user
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                anyOf:
+                                    - {$ref: '#/components/schemas/LoginUserResponseDataTransferObject'}
+                                    - {properties: {error: {type: string}}, required: [error], type: object}
+            tags:
+                - User
             security: []
             parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LoginUserRequestDataTransferObject'
     /register:
         post:
             operationId: register-user
@@ -100,7 +186,7 @@ paths:
                             $ref: '#/components/schemas/CreateUserRequestDataTransferObject'
 servers:
     -
-        url: /api
+        url: /
 tags:
     -
         name: User
