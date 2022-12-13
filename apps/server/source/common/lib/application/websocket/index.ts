@@ -1,46 +1,36 @@
-import http from "node:http";
-import { Server, Socket } from "socket.io";
+import { Namespace, Server } from "socket.io";
 
 export class WebsocketServer {
 	public socket: Server;
 
-	constructor(server: http.Server) {
-		this.socket = new Server(server);
-		// Console.log address of websocket server
-		this.socket.on("connection", (socket: Socket) => {
-			console.log("Connected to websocket", socket.handshake.address);
-		});
+	constructor() {
+		this.socket = new Server().listen(1338);
 	}
 
 	public listen(): void {
 		this.socket.on("connect", () => {
-			console.log("Connected to websocket");
+			console.log("Somebody has connected to websocket server...");
 		});
 
 		this.socket.on("disconnect", () => {
-			console.log("Disconnected from websocket");
+			console.log("Somebody has disconnected from websocket server...");
 		});
 	}
 }
 
-export class WebsocketChannelInstance {
-	private connection: Server;
+export const WEBSOCKET_SERVER = new WebsocketServer();
 
-	constructor(private server: http.Server, public channel: string) {
-		this.server = server;
-		this.channel = channel;
-		this.connection = new Server(this.server, {
-			path: this.channel,
+export abstract class WebsocketNamespace extends Namespace {
+	constructor(
+		public namespace: string,
+		server: Server = WEBSOCKET_SERVER.socket
+	) {
+		super(server, namespace);
+
+		this.on("connect", () => {
+			console.log(`Somebody has connected to ${namespace} namespace...`);
 		});
 	}
 
-	public emit(event: string, data: any): void {
-		this.connection.emit(event, data);
-	}
-
-	public on(event: string, callback: (data: any) => void): void {
-		this.connection.on(event, callback);
-	}
+	public abstract listen(): void;
 }
-
-export const WEBSOCKET_SERVER_INSTANCE = http.createServer();
