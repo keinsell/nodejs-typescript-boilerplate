@@ -2,9 +2,13 @@ import type {
 	NextApiRequest as Request,
 	NextApiResponse as Response,
 } from "next";
+import { User } from "../../../../modules/user/entity";
+import { ApplicationRequestContext } from "../context/request-context";
+
+type ApplicationRequest = Request & ApplicationRequestContext;
 
 export abstract class NextjsController {
-	protected req!: Request;
+	protected req!: ApplicationRequest;
 	protected res!: Response;
 
 	protected abstract executeImplementation(

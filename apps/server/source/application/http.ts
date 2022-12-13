@@ -16,7 +16,7 @@ import { GetProfileController } from "../modules/user/commands/get-profile/contr
 import { RegisterUserController } from "../modules/user/commands/register-user/controller";
 
 export class HttpApplication {
-	private application: App;
+	public application: App;
 
 	constructor() {
 		this.application = new App();
@@ -31,7 +31,6 @@ export class HttpApplication {
 		this.application.use(bodyparser.urlencoded());
 		this.application.use(lruSend());
 		this.application.options("*", cors());
-
 		passport.use(jwtAuthorizationStrategy);
 	}
 
@@ -98,8 +97,8 @@ export class HttpApplication {
 		console.log("📝 OpenAPI 3.0 spec generated");
 	}
 
-	public async bootstrap() {
-		await this.application.listen(1337);
+	public bootstrap() {
+		this.application.listen(1337);
 
 		if (APPLICATION_CONFIGURATION.generateOpenApiDocumentation) {
 			this.openapi3();

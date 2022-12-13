@@ -1,7 +1,10 @@
 import { Request, Response } from "@tinyhttp/app";
+import { ApplicationRequestContext } from "../context/request-context";
+
+type ApplicationRequest = Request & ApplicationRequestContext;
 
 export abstract class TinnyHttpController<T = any> {
-	protected req!: Request;
+	protected req!: ApplicationRequest;
 	protected res!: Response;
 
 	protected abstract executeImplementation(
