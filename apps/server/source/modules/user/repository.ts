@@ -3,7 +3,7 @@ import {
 	IRepository,
 	Paginated,
 	PaginatedQueryParams,
-} from "../../common/lib/domain/repository";
+} from "../../common/lib/persistence/repository";
 import { PrismaInfrastructre } from "../../infrastructure/prisma";
 import { User } from "./entity";
 import { UserMapper } from "./mapper";

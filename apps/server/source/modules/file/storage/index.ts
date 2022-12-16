@@ -1,6 +1,7 @@
-export interface IFileStorageRepository {
-	create(file: any): Promise<unknown>;
-	find(hash: string): Promise<unknown | undefined>;
-	update(hash: string, file: any): Promise<unknown | undefined>;
+import { File } from "../entity";
+
+export interface IFileStorage {
+	put(file: File): Promise<File>;
+	get(hash: string): Promise<File | undefined>;
 	delete(hash: string): Promise<void>;
 }
