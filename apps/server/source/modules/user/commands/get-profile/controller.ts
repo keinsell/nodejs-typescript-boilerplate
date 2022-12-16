@@ -1,5 +1,5 @@
 /* eslint-disable node/file-extension-in-import */
-import { Body, Get, OperationId, Response, Route, Security, Tags } from "tsoa";
+import { Get, OperationId, Response, Route, Security, Tags } from "tsoa";
 import { Controller } from "../../../../common/lib/application/controller";
 import { User } from "../../entity";
 import { GetProfileCommand } from "./command";

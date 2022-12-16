@@ -8,4 +8,12 @@ export class ApplicationError {
 		this.statusCode = statusCode;
 		this.name = this.constructor.name;
 	}
+
+	toJSON() {
+		return {
+			name: this.name,
+			message: this.message,
+			code: this.statusCode,
+		};
+	}
 }
