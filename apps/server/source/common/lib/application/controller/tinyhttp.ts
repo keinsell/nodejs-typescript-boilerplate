@@ -11,7 +11,7 @@ export abstract class TinnyHttpController<T = any> {
 		..._arguments: unknown[]
 	): Promise<T>;
 
-	public async execute(request: Request, response: Response) {
+	public async execute(request: ApplicationRequest, response: Response) {
 		this.req = request;
 		this.res = response;
 

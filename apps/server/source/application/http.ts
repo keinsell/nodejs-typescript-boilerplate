@@ -14,6 +14,7 @@ import passport from "passport";
 import { jwtAuthorizationStrategy } from "../modules/authentication/strategy";
 import { GetProfileController } from "../modules/user/commands/get-profile/controller";
 import { RegisterUserController } from "../modules/user/commands/register-user/controller";
+import { RequestIdInterceptor } from "../common/lib/application/interceptor/request-id";
 
 export class HttpApplication {
 	public application: App;
@@ -32,12 +33,16 @@ export class HttpApplication {
 		this.application.use(lruSend());
 		this.application.options("*", cors());
 		passport.use(jwtAuthorizationStrategy);
+		this.application.use(new RequestIdInterceptor().intercept);
 	}
 
 	protected applyDevelopmentMiddleware() {}
 	protected applyProductionMiddleware() {}
 
 	protected attachComponents() {
+		this.application.get("/", (req, res) => {
+			res.send(req.requestId);
+		});
 		this.application.post("/login", (request, response) =>
 			new LoginUserController().execute(request, response)
 		);
