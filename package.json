@@ -49,7 +49,7 @@
   },
   "volta": {
     "node": "18.12.1",
-    "yarn": "1.18.0"
+    "yarn": "1.22.19"
   },
   "prisma": {
     "schema": "apps/server/prisma/schema.prisma",
