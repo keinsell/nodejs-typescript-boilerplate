@@ -1,11 +1,12 @@
 import { Prisma } from "@prisma/client";
 import { Mapper } from "../../common/lib/persistence/mapper";
 import { DbRecords } from "../../common/lib/persistence/mapper/db-records";
+import { UserProfileDataTransferObject } from "./commands/get-profile/response";
 import { Password, User } from "./entity";
-import { UserDataTransferObject } from "./user.dto";
 
 export class UserMapper
-	implements Mapper<User, DbRecords.UserCreateRecord, UserDataTransferObject>
+	implements
+		Mapper<User, DbRecords.UserCreateRecord, UserProfileDataTransferObject>
 {
 	toPersistence(entity: User): Prisma.UserCreateInput {
 		return {
@@ -26,8 +27,9 @@ export class UserMapper
 		);
 	}
 
-	toResponse?(entity: User): UserDataTransferObject {
+	toResponse?(entity: User): UserProfileDataTransferObject {
 		return {
+			id: entity.id,
 			username: entity.username,
 			email: entity.email,
 		};
