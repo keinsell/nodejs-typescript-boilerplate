@@ -15,7 +15,7 @@ export abstract class NextjsController {
 		...arguments_: unknown[]
 	): Promise<Response>;
 
-	public async execute(request: Request, response: Response) {
+	public async execute(request: ApplicationRequest, response: Response) {
 		this.req = request;
 		this.res = response;
 
