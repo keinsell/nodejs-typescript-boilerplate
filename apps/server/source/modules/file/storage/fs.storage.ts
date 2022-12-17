@@ -25,9 +25,10 @@ export class FilesystemStorage implements IFileStorage {
 		return Promise.resolve(file);
 	}
 
+	// TODO: If we have directories in storage directory this function will not work properly - there probably we need some improvment.
 	async get(hash: string): Promise<File | undefined> {
 		// Find a file with the given hash
-		const fileWithHashInFilename = fs
+		let fileWithHashInFilename = fs
 			.readdirSync(this.storageDirectory)
 			.find((filename) => filename.startsWith(hash));
 
@@ -62,5 +63,29 @@ export class FilesystemStorage implements IFileStorage {
 
 		// Delete file from filesystem
 		fs.unlinkSync(`${this.storageDirectory}/${fileWithHashInFilename}`);
+	}
+
+	async list(): Promise<string[]> {
+		// Get list of files in storage directory
+		const files = fs.readdirSync(this.storageDirectory);
+
+		// If storage directory contains other directories get list of files in those directories
+		for (const file of files) {
+			if (
+				fs.lstatSync(`${this.storageDirectory}/${file}`).isDirectory()
+			) {
+				files.push(
+					...fs
+						.readdirSync(`${this.storageDirectory}/${file}`)
+						.map((filename) => `${file}/${filename}`)
+				);
+
+				// Remove directory from list of files
+				files.splice(files.indexOf(file), 1);
+			}
+		}
+
+		// Return list of files
+		return files;
 	}
 }

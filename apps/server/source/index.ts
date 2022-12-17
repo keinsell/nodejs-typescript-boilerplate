@@ -24,9 +24,11 @@ export async function main() {
 
 	fileStorage.put(file);
 
-	const x = await fileStorage.get("6b6d465e34a26f68e36fe736c32b9145");
+	const x = await fileStorage.get("kews");
 
 	console.log(x);
+
+	console.log(await fileStorage.list());
 }
 
 await main();
