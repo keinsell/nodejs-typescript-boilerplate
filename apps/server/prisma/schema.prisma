@@ -28,8 +28,5 @@ model File {
     filename String  @unique
     mime     String
     size     Int
-    width    Int?
-    height   Int?
-    duration String?
     ipfs     String?
 }

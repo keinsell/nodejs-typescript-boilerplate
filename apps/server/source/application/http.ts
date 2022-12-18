@@ -41,7 +41,7 @@ export class HttpApplication {
 
 	protected attachComponents() {
 		this.application.get("/", (req, res) => {
-			res.send(req.requestId);
+			res.send((req as any).requestId);
 		});
 		this.application.post("/login", (request, response) =>
 			new LoginUserController().execute(request, response)

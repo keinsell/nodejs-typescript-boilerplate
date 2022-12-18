@@ -7,7 +7,7 @@ import fs from "node:fs";
 // by storing files on the local filesystem. The storage
 // directory is provided in the constructor.
 export class FilesystemStorage implements IFileStorage {
-	constructor(private storageDirectory: string) {
+	constructor(private storageDirectory: string = "./files") {
 		// Check if directory exists in filesystem if not create it
 		if (!fs.existsSync(this.storageDirectory)) {
 			fs.mkdirSync(this.storageDirectory, { recursive: true });

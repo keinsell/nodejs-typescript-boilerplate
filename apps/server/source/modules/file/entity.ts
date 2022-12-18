@@ -34,9 +34,6 @@ export class File extends Entity implements FileProperties {
 	}
 }
 
-export class Video extends File {}
-export class Document extends File {}
-
 export class Photo extends File {
 	width: number;
 	height: number;
@@ -46,3 +43,29 @@ export class Photo extends File {
 		this.height = properties.height;
 	}
 }
+
+export class Video extends File {
+	width: number;
+	height: number;
+	duration: number;
+	frameRate: number;
+	bitRate: number;
+
+	constructor(properties: {
+		file: File;
+		width: number;
+		height: number;
+		duration: number;
+		frameRate: number;
+		bitRate: number;
+	}) {
+		super(properties.file);
+		this.width = properties.width;
+		this.height = properties.height;
+		this.duration = properties.duration;
+		this.frameRate = properties.frameRate;
+		this.bitRate = properties.bitRate;
+	}
+}
+
+export class Document extends File {}
